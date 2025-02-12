@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignID('sondage_id')->constrained('sondage');
+            $table->foreignID('sondage_id')->constrained('sondages');
             $table->enum('type',['simple_choix', 'choix_multiple', 'texte'])->default('texte');
             $table->timestamps();
         });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('stockage_reponses', function (Blueprint $table) {
             $table->id();
-            $table->foreignID('reponse_id')->constrained('responses');
+            $table->foreignID('reponse_id')->constrained('reponses');
             $table->foreignID('question_id')->constrained('questions');
             $table->foreignID('option_id')->constrained('options');
             $table->text('texte_reponse')->nullable();

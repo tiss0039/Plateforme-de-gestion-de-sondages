@@ -11,7 +11,7 @@ class Stockage_Reponse extends Model
 {
     //
     use HasFactory;
-    protected $fillable = ['titre', 'description', 'statut', 'cree_par'];
+    protected $fillable = ['reponse_id', 'question_id', 'option_id', 'texte_reponse'];
     
     public function response(): BelongsTo {
         return $this->belongsTo(Response::class);
