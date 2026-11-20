@@ -41,6 +41,9 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Un nouveau compte peut créer des sondages et répondre à ceux des autres.
+        $user->assignRole('client');
+
         event(new Registered($user));
 
         Auth::login($user);

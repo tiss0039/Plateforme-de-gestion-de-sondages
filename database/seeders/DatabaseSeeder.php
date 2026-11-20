@@ -2,43 +2,20 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Les rôles (administrateur, client, commercial, sondeur) et leurs
+     * permissions sont créés par la migration
+     * 2026_11_20_100003_create_default_roles_and_permissions ; ce seeder
+     * crée les comptes de démonstration.
      */
     public function run(): void
     {
-
-        Permission::create(['name' => 'create-sondage']);
-        Permission::create(['name' => 'edit-sondage']);
-        Permission::create(['name' => 'delete-sondage']);
-        Permission::create(['name' => 'assign-sondage']);
-        Permission::create(['name' => 'execute-sondage']);
-        Permission::create(['name' => 'view-resultats']);
-        Permission::create(['name' => 'manage-users']);
-
-   
-        $admin = Role::create(['name' => 'administrateur']);
-        $commercial = Role::create(['name' => 'commercial']);
-        $client = Role::create(['name' => 'client']);
-        $sondeur = Role::create(['name' => 'sondeur']);
-
-
-        $admin->givePermissionTo(['create-sondage', 'edit-sondage', 'delete-sondage', 'assign-sondage', 'view-resultats', 'manage-users']);
-        $commercial->givePermissionTo(['assign-sondage']);
-        $client->givePermissionTo(['create-sondage']);
-        $sondeur->givePermissionTo(['execute-sondage']);
-
-
         $this->call([
-            UserSeeder::class, 
+            UserSeeder::class,
         ]);
     }
 }
-

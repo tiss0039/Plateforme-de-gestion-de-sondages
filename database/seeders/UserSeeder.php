@@ -2,38 +2,32 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 
-class UsersSeeder extends Seeder
+/**
+ * Comptes de démonstration, destinés au développement local uniquement
+ * (mot de passe : « password »).
+ */
+class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    private const COMPTES = [
+        ['Admin', 'admin@example.com', 'administrateur'],
+        ['Client Test', 'client@example.com', 'client'],
+        ['Commercial Test', 'commercial@example.com', 'commercial'],
+        ['Sondeur Test', 'sondeur@example.com', 'sondeur'],
+    ];
+
+    public function run(): void
     {
-        
-        $admin = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
-        ]);
+        foreach (self::COMPTES as [$nom, $email, $role]) {
+            $user = User::firstOrCreate(
+                ['email' => $email],
+                ['name' => $nom, 'password' => Hash::make('password'), 'email_verified_at' => now()],
+            );
 
-     
-        $client = User::create([
-            'name' => 'Client Test',
-            'email' => 'client@example.com',
-            'password' => Hash::make('password'),
-        ]);
-
-    
-        $commercial = User::create([
-            'name' => 'Commercial Test',
-            'email' => 'commercial@example.com',
-            'password' => Hash::make('password'),
-        ]);
+            $user->syncRoles([$role]);
+        }
     }
 }

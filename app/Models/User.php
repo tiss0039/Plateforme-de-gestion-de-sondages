@@ -23,7 +23,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
     ];
 
     /**
@@ -49,15 +48,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function sondages(): HasMany {
-        return $this->hasMany(Sondage::class,'cree_par');
+    public function sondages(): HasMany
+    {
+        return $this->hasMany(Sondage::class);
     }
 
-    public function responses(): HasMany {
-        return $this->hasMany(Response::class);
-    }
-
-    public function sondageAssignees() {
-        return $this->belongsToMany(Sondage::class, 'sondage_assignments', 'sondeur_id', 'sondage_id');
+    public function participations(): HasMany
+    {
+        return $this->hasMany(Participation::class);
     }
 }

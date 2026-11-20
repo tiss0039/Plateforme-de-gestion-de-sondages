@@ -32,6 +32,12 @@ class UserFactory extends Factory
         ];
     }
 
+    /** Attribue un rôle après la création (« client », « administrateur »…). */
+    public function role(string $role): static
+    {
+        return $this->afterCreating(fn ($user) => $user->assignRole($role));
+    }
+
     /**
      * Indicate that the model's email address should be unverified.
      */
